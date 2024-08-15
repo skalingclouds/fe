@@ -125,16 +125,14 @@ function MainComponent() {
         </div>
       </div>
       <div className="mt-8 h-[400px]">
-        <ReactGoogleMaps.APIProvider apiKey={NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-          <ReactGoogleMaps.Map
-            id="example-map"
-            mapId="example-map"
+        <LoadScript googleMapsApiKey={NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+          <GoogleMap
+            mapContainerStyle={{ width: '100%', height: '100%' }}
             center={center}
-            onCenterChanged={(e) => setCenter(e.detail.center)}
             zoom={12}
-            mapTypeId="satellite"
-          ></ReactGoogleMaps.Map>
-        </ReactGoogleMaps.APIProvider>
+            options={{ mapTypeId: 'satellite' }}
+          />
+        </LoadScript>
       </div>
     </div>
   );
