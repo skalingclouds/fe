@@ -12,6 +12,11 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
+import { Select, Checkbox, Label, Input } from "@/components/ui";
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
 
 const DynamicMap = dynamic(() => import('@react-google-maps/api').then((mod) => mod.GoogleMap), {
   ssr: false
@@ -191,9 +196,9 @@ function Dashboardb3({
           onValueChange={setSearchRange}
         >
           {searchRangeOptions.map((option) => (
-            <Select.Option key={option} value={option}>
+            <option key={option} value={option}>
               {option.replace("_", " ").toLowerCase()}
-            </Select.Option>
+            </option>
           ))}
         </Select>
       </header>
@@ -296,9 +301,9 @@ function Dashboardb3({
           onValueChange={setMlsStatuses}
         >
           {mlsStatusesOptions.map((status) => (
-            <Select.Option key={status} value={status}>
+            <option key={status} value={status}>
               {status.replace("ml_", "").replace("mls_", "")}
-            </Select.Option>
+            </option>
           ))}
         </Select>
       </div>
