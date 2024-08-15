@@ -4,7 +4,7 @@ import * as Recharts from "recharts";
 import * as ReactGoogleMaps from "@/libraries/react-google-maps";
 import * as ShadcnUI from "@/design-libraries/shadcn-ui";
 
-const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY =
+const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "AIzaSyA_AL7GqIvuWqMHck_7RWPQFfcgS4fjT9g"
   process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 function MainComponent() {
