@@ -7,6 +7,11 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
+import { Select, Checkbox, Label, Input } from "@/components/ui";
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
 
 const DynamicMap = dynamic(() => import('@react-google-maps/api').then((mod) => mod.GoogleMap), {
   ssr: false
@@ -178,7 +183,125 @@ function Dashboardb3({
 
   return (
     <div className="bg-[#121212] text-white min-h-screen p-6">
-      {/* ... (rest of the Dashboardb3 component code) */}
+      <header className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold">Query Builder</h1>
+        <Select
+          placeholder="Select date range"
+          value={searchRange}
+          onValueChange={setSearchRange}
+        >
+          {searchRangeOptions.map((option) => (
+            <Select.Option key={option} value={option}>
+              {option.replace("_", " ").toLowerCase()}
+            </Select.Option>
+          ))}
+        </Select>
+      </header>
+
+      {/* Location Parameters */}
+      <div className="bg-[#1E1E1E] p-6 rounded-lg border border-white mb-8">
+        <h2 className="text-xl font-semibold mb-4">Location Parameters</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {locationFilters.map((filter) => (
+            <div key={filter.field}>
+              <Label htmlFor={filter.field}>{filter.name}</Label>
+              <Input
+                id={filter.field}
+                placeholder={filter.hint}
+                className="bg-[#1E1E1E] border-white"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Property Parameters */}
+      <div className="bg-[#1E1E1E] p-6 rounded-lg border border-white mb-8">
+        <h2 className="text-xl font-semibold mb-4">Property Parameters</h2>
+        <div className="mb-4">
+          <Label>Property Types</Label>
+          <div className="grid grid-cols-2 gap-2">
+            {propertyTypesOptions.map((type) => (
+              <div key={type} className="flex items-center">
+                <Checkbox
+                  id={type}
+                  checked={propertyTypes.includes(type)}
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      setPropertyTypes([...propertyTypes, type]);
+                    } else {
+                      setPropertyTypes(propertyTypes.filter((t) => t !== type));
+                    }
+                  }}
+                  className="border border-white"
+                />
+                <Label htmlFor={type} className="ml-2">
+                  {type}
+                </Label>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {minMaxInputs.map((input) => (
+            <div key={input} className="flex flex-col">
+              <Label>{input.replace(/_/g, " ")}</Label>
+              <div className="flex gap-2">
+                <Input
+                  placeholder="Min"
+                  className="bg-[#1E1E1E] border-white"
+                />
+                <Input
+                  placeholder="Max"
+                  className="bg-[#1E1E1E] border-white"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-[#1E1E1E] p-6 rounded-lg mb-8 border border-white">
+        <h2 className="text-xl font-semibold mb-4">Filters</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {filtersPart1.map((filter) => (
+            <div key={filter} className="flex items-center space-x-2">
+              <Checkbox id={filter} className="border border-white" />
+              <Label htmlFor={filter}>
+                {filter.replace(/_/g, " ")}
+              </Label>
+            </div>
+          ))}
+        </div>
+        <h3 className="text-lg font-semibold mt-6 mb-2">Modifiers</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="flex items-center space-x-2">
+            <Checkbox id="OR" className="border border-white" />
+            <Label htmlFor="OR">OR</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox id="EXCLUDE" className="border border-white" />
+            <Label htmlFor="EXCLUDE">EXCLUDE</Label>
+          </div>
+        </div>
+      </div>
+
+      {/* MLS Status */}
+      <div className="bg-[#1E1E1E] p-6 rounded-lg border border-white">
+        <h2 className="text-xl font-semibold mb-4">MLS Status</h2>
+        <Select
+          placeholder="Select MLS statuses"
+          value={mlsStatuses}
+          onValueChange={setMlsStatuses}
+        >
+          {mlsStatusesOptions.map((status) => (
+            <Select.Option key={status} value={status}>
+              {status.replace("ml_", "").replace("mls_", "")}
+            </Select.Option>
+          ))}
+        </Select>
+      </div>
     </div>
   );
 }
