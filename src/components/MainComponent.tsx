@@ -1,7 +1,7 @@
 import React from "react";
 import dynamic from 'next/dynamic';
 import { LineChart, AreaChart, BarChart, XAxis, YAxis, CartesianGrid, Line, Area, Bar } from "recharts";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { Select, Checkbox, Label, Input } from "@/components/ui";
 import getConfig from 'next/config';
 
