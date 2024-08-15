@@ -22,6 +22,11 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
+import { Select, Checkbox, Label, Input } from "@/components/ui";
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
 
 const DynamicMap = dynamic(() => import('@react-google-maps/api').then((mod) => mod.GoogleMap), {
   ssr: false
@@ -213,7 +218,7 @@ function Dashboardb3({
         <Select
           placeholder="Select date range"
           value={searchRange}
-          onValueChange={setSearchRange}
+          onValueChange={(value) => setSearchRange(value)}
         >
           {searchRangeOptions.map((option) => (
             <option key={option} value={option}>
@@ -317,8 +322,8 @@ function Dashboardb3({
         <h2 className="text-xl font-semibold mb-4">MLS Status</h2>
         <Select
           placeholder="Select MLS statuses"
-          value={mlsStatuses}
-          onValueChange={setMlsStatuses}
+          value={mlsStatuses.join(',')}
+          onValueChange={(value) => setMlsStatuses(value.split(','))}
         >
           {mlsStatusesOptions.map((status) => (
             <option key={status} value={status}>
