@@ -1,16 +1,22 @@
 "use client";
 import React from "react";
 import { LineChart, AreaChart, BarChart, XAxis, YAxis, CartesianGrid, Line, Area, Bar } from "recharts";
-import { APIProvider, Map } from "@react-google-maps/api";
+import { APIProvider, GoogleMap } from "@react-google-maps/api";
 import { Select, Label, Input, Checkbox } from "@/components/ui";
 
-const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA_AL7GqIvuWqMHck_7RWPQFfcgS4fjT9g";
+const { publicRuntimeConfig } = getConfig();
+const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
+
+const DynamicMap = dynamic(() => import('@react-google-maps/api').then((mod) => mod.GoogleMap), {
+  ssr: false
+});
 
 function MainComponent() {
   const [searchRange, setSearchRange] = React.useState("");
   const [propertyTypes, setPropertyTypes] = React.useState([]);
   const [mlsStatuses, setMlsStatuses] = React.useState([]);
   const [selectedAddress, setSelectedAddress] = React.useState(null);
+  const [center, setCenter] = React.useState({ lat: 37.7749, lng: -122.4194 });
   const searchRangeOptions = [
     "1_MONTH",
     "2_MONTH",
