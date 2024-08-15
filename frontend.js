@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
-import * as Recharts from "recharts";
-import * as ReactGoogleMaps from "@/libraries/react-google-maps";
-import * as ShadcnUI from "@/design-libraries/shadcn-ui";
+import { LineChart, AreaChart, BarChart, XAxis, YAxis, CartesianGrid, Line, Area, Bar } from "recharts";
+import { APIProvider, Map } from "@react-google-maps/api";
+import { Select, Label, Input, Checkbox } from "@/components/ui";
 
-const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = "AIzaSyA_AL7GqIvuWqMHck_7RWPQFfcgS4fjT9g"
-  process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "AIzaSyA_AL7GqIvuWqMHck_7RWPQFfcgS4fjT9g";
 
 function MainComponent() {
   const [searchRange, setSearchRange] = React.useState("");
@@ -75,19 +74,6 @@ function MainComponent() {
     { name: "Address 3", value: 15 },
   ];
   const [center, setCenter] = React.useState({ lat: 37.7749, lng: -122.4194 });
-
-  const handleAddressClick = (address) => {
-    setSelectedAddress(address);
-    // Assuming 'address' contains the address string
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (status === "OK") {
-        setCenter(results[0].geometry.location);
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  };
 
   return (
     <div className="bg-[#121212] text-white min-h-screen">
@@ -169,6 +155,20 @@ function Dashboardb3({
   selectedAddress,
   setSelectedAddress,
 }) {
+  const handleAddressClick = (address) => {
+    setSelectedAddress(address);
+    // Assuming 'address' contains the address string
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK") {
+        // You might need to lift this state up to the parent component
+        // or use a different state management solution
+        // setCenter(results[0].geometry.location);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  };
   return (
     <div className="bg-[#121212] text-white min-h-screen p-6">
       <header className="flex justify-between items-center mb-8">
