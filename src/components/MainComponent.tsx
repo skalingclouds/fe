@@ -32,6 +32,11 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
+import { Select, Checkbox, Label, Input } from "@/components/ui";
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
+const GOOGLE_MAPS_API_KEY = publicRuntimeConfig.GOOGLE_MAPS_API_KEY;
 
 const DynamicMap = dynamic(() => import('@react-google-maps/api').then((mod) => mod.GoogleMap), {
   ssr: false
@@ -70,6 +75,45 @@ function Dashboardb3({
 }) {
   // Dashboardb3 component implementation
   // ...
+}
+
+function Dashboardb3({
+  searchRange,
+  setSearchRange,
+  propertyTypes,
+  setPropertyTypes,
+  mlsStatuses,
+  setMlsStatuses,
+  locationFilters,
+  propertyTypesOptions,
+  filtersPart1,
+  minMaxInputs,
+  searchRangeOptions,
+  mlsStatusesOptions,
+  selectedAddress,
+  setSelectedAddress,
+}: {
+  searchRange: string;
+  setSearchRange: (value: string) => void;
+  propertyTypes: string[];
+  setPropertyTypes: (value: string[]) => void;
+  mlsStatuses: string[];
+  setMlsStatuses: (value: string[]) => void;
+  locationFilters: Array<{ name: string; field: string; hint: string }>;
+  propertyTypesOptions: string[];
+  filtersPart1: string[];
+  minMaxInputs: string[];
+  searchRangeOptions: string[];
+  mlsStatusesOptions: string[];
+  selectedAddress: string | null;
+  setSelectedAddress: (value: string | null) => void;
+}) {
+  // Dashboardb3 component implementation
+  return (
+    <div className="bg-[#121212] text-white min-h-screen p-6">
+      {/* Component content */}
+    </div>
+  );
 }
 
 function MainComponent() {
