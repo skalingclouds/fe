@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { LineChart, AreaChart, BarChart, XAxis, YAxis, CartesianGrid, Line, Area, Bar } from "recharts";
-import { APIProvider, GoogleMap } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { Select, Label, Input, Checkbox } from "@/components/ui";
 
 const { publicRuntimeConfig } = getConfig();
